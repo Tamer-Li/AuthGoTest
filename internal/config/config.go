@@ -1,21 +1,10 @@
 package config
 
 import (
+	"github.com/ilyakaznacheev/cleanenv"
 	"log"
 	"os"
 )
-
-type Config struct {
-	UrlDB `yaml:"url_db" defa`
-}
-
-type UrlDB struct {
-	DBHost string
-	DBPort string
-	DBUser string
-	DBPass string
-	DBName string
-}
 
 func MustLoad(configPath string) *Config {
 	cfgPath := os.Getenv(configPath)
@@ -27,5 +16,11 @@ func MustLoad(configPath string) *Config {
 		log.Fatalf("config file does not exist: %s", cfgPath)
 	}
 
-	env
+	var cfg Config
+
+	if err := cleanenv.ReadConfig(cfgPath, &cfg); err != nil {
+		log.Fatalf("cannot read config: %s", err)
+	}
+
+	return &cfg
 }

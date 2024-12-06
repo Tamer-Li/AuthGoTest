@@ -1,0 +1,16 @@
+env: "test"
+
+url_db:
+  db_host: "localhost"
+  db_port: "5432"
+  db_user: "postgres"
+  db_pass: "postgres"
+  db_name: "postgres"
+
+http_server:
+  address: "0.0.0.0:8082"
+  timeout: 4s
+  idle_timeout: 30s
+
+jwt_secret:
+  secret: "secret"
